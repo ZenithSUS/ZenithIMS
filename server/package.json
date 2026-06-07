@@ -1,0 +1,39 @@
+{
+  "name": "zenithmis-server",
+  "version": "1.0.0",
+  "description": "Server for ZenithMIS",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "cross-env NODE_ENV=production tsx src/server.ts",
+    "dev": "cross-env NODE_ENV=development tsx watch src/server.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "cross-env": "^10.1.0",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "helmet": "^8.2.0",
+    "hpp": "^0.2.3",
+    "mongodb": "^7.2.0",
+    "mongoose": "^9.6.3",
+    "tsx": "^4.22.4",
+    "xss": "^1.0.15",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.6",
+    "@types/hpp": "^0.2.7",
+    "@types/node": "^25.9.2",
+    "eslint": "^10.4.1",
+    "nodemon": "^3.1.14",
+    "prettier": "^3.8.3",
+    "ts-node": "^10.9.2",
+    "typescript": "^6.0.3"
+  }
+}
