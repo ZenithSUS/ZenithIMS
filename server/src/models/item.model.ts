@@ -25,7 +25,6 @@ const itemSchema = new Schema<IItem>(
     itemCode: {
       type: String,
       required: true,
-      unique: true,
     },
     itemName: {
       type: String,
