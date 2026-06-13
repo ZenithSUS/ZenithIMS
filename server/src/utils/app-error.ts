@@ -14,8 +14,20 @@ class AppError extends Error {
     return new AppError(message, 400);
   }
 
+  static Unauthorized(message: string) {
+    return new AppError(message, 401);
+  }
+
+  static Forbidden(message: string) {
+    return new AppError(message, 403);
+  }
+
   static NotFound(message: string) {
     return new AppError(message, 404);
+  }
+
+  static Conflict(message: string) {
+    return new AppError(message, 409);
   }
 
   static Internal(message: string) {

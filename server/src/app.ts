@@ -3,11 +3,15 @@ import express from "express";
 import helmet from "helmet";
 import cors from "cors";
 import hpp from "hpp";
+
+// Middlewares
 import errorMiddleware from "./middlewares/error.middleware.js";
 import notFoundMiddleware from "./middlewares/not-found.middleware.js";
+import requestLogger from "./middlewares/request-logger.js";
 
-// Routes
+// Routes V1
 import itemRouterV1 from "./routes/v1/item.route.js";
+import transactionV1 from "./routes/v1/transaction.route.js";
 
 const app = express();
 
@@ -21,17 +25,19 @@ app.use(
   }),
 );
 app.use(hpp());
+app.use(requestLogger);
 
 // Health check
 app.get("/health", (_, res) => {
   res.status(200).json({
     success: true,
-    message: "Server is healthy",
+    message: "ZenithMIS Server is healthy",
   });
 });
 
 // Routes Version 1
 app.use("/api/v1/items", itemRouterV1);
+app.use("/api/v1/transactions", transactionV1);
 
 // Error and not found middlewares
 app.use(notFoundMiddleware);

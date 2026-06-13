@@ -1,10 +1,18 @@
-import { Document, Schema, model } from "mongoose";
+import { Document, Schema, Types, model } from "mongoose";
 
 export interface ITransaction extends Document {
-  itemId: Schema.Types.ObjectId;
+  itemId: Types.ObjectId;
   transactionType: "IN" | "OUT";
   quantity: number;
-  remarks: string;
+  remarks?: string | undefined;
+  createdBy: string;
+}
+
+export interface ITransactionInput {
+  itemId: string;
+  transactionType: "IN" | "OUT";
+  quantity: number;
+  remarks?: string | undefined;
   createdBy: string;
 }
 

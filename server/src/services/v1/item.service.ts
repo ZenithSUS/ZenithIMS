@@ -2,14 +2,15 @@ import * as itemRepo from "../../repositories/item.repository.js";
 import * as itemSchema from "../../schemas/item.schema.js";
 import type { IItemInput } from "../../models/item.model.js";
 import type { UpdateItemInput } from "../../schemas/item.schema.js";
+import AppError from "../../utils/app-error.js";
 
-export const createItemService = async (item: IItemInput) => {
+export const createItemServiceV1 = async (item: IItemInput) => {
   const validatedItem = itemSchema.createItemSchema.parse(item);
   const newItem = await itemRepo.createItem(validatedItem);
   return newItem;
 };
 
-export const getAllItemsPaginatedService = async (
+export const getAllItemsPaginatedServiceV1 = async (
   page: number,
   limit: number,
 ) => {
@@ -24,17 +25,28 @@ export const getAllItemsPaginatedService = async (
   return paginatedItems;
 };
 
-export const getItemByIdService = async (id: string) => {
+export const getItemByIdServiceV1 = async (id: string) => {
   const validatedParams = itemSchema.itemParamsSchema.parse({ id });
   const item = await itemRepo.getItemById(validatedParams.id);
+
+  if (!item) {
+    throw AppError.NotFound("Item not found");
+  }
+
   return item;
 };
 
-export const updateItemByIdService = async (
+export const updateItemByIdServiceV1 = async (
   id: string,
   item: UpdateItemInput,
 ) => {
   const validatedParams = itemSchema.updateItemSchema.parse({ id, item });
+
+  const existing = await itemRepo.getItemById(validatedParams.id);
+
+  if (!existing) {
+    throw AppError.NotFound("Item not found");
+  }
 
   const updatedItem = await itemRepo.updateItem(
     validatedParams.id,
@@ -43,8 +55,15 @@ export const updateItemByIdService = async (
   return updatedItem;
 };
 
-export const deleteItemByIdService = async (id: string) => {
+export const deleteItemByIdServiceV1 = async (id: string) => {
   const validatedParams = itemSchema.itemParamsSchema.parse({ id });
+
+  const existing = await itemRepo.getItemById(validatedParams.id);
+
+  if (!existing) {
+    throw AppError.NotFound("Item not found");
+  }
+
   const deletedItem = await itemRepo.deleteItem(validatedParams.id);
   return deletedItem;
 };

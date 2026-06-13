@@ -10,7 +10,7 @@ export const createItemControllerV1 = async (
 ) => {
   try {
     const data: IItemInput = req.body;
-    const newItem = await itemService.createItemService(data);
+    const newItem = await itemService.createItemServiceV1(data);
 
     return res.json({
       success: true,
@@ -31,7 +31,7 @@ export const getAllItemsPaginatedControllerV1 = async (
     const page = Number(req.query.page);
     const limit = Number(req.query.limit);
 
-    const items = await itemService.getAllItemsPaginatedService(page, limit);
+    const items = await itemService.getAllItemsPaginatedServiceV1(page, limit);
 
     return res.status(200).json({
       success: true,
@@ -50,7 +50,7 @@ export const getItemByIdControllerV1 = async (
 ) => {
   try {
     const id = req.params.id;
-    const item = await itemService.getItemByIdService(id);
+    const item = await itemService.getItemByIdServiceV1(id);
 
     return res.status(200).json({
       success: true,
@@ -69,7 +69,7 @@ export const deleteItemByIdControllerV1 = async (
 ) => {
   try {
     const id = req.params.id;
-    await itemService.deleteItemByIdService(id);
+    await itemService.deleteItemByIdServiceV1(id);
 
     return res.status(200).json({
       success: true,
@@ -88,7 +88,7 @@ export const updateItemByIdControllerV1 = async (
   try {
     const id = req.params.id;
     const data: IItemInput = req.body;
-    const updatedItem = await itemService.updateItemByIdService(id, data);
+    const updatedItem = await itemService.updateItemByIdServiceV1(id, data);
 
     return res.status(200).json({
       success: true,
