@@ -42,6 +42,21 @@ export const updateItem = async (id: string, item: UpdateItemInput) => {
   return updatedItem;
 };
 
+export const updateItemCurrentStock = async (
+  id: string,
+  currentStock: number,
+) => {
+  const updatedItem = await Item.findByIdAndUpdate(
+    id,
+    { currentStock },
+    {
+      returnDocument: "after",
+    },
+  );
+
+  return updatedItem;
+};
+
 export const deleteItem = async (id: string) => {
   const deletedItem = await Item.findByIdAndDelete(id).lean();
   return deletedItem;

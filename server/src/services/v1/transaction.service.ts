@@ -1,4 +1,5 @@
 import * as transactionRepo from "../../repositories/transaction.repository.js";
+import * as itemRepo from "../../repositories/item.repository.js";
 import * as transactionSchema from "../../schemas/transaction.schema.js";
 import type { ITransactionInput } from "../../models/transaction.model.js";
 import type { UpdateTransactionInput } from "../../schemas/transaction.schema.js";
@@ -10,8 +11,32 @@ export const createTransactionServiceV1 = async (
   const validatedTransaction =
     transactionSchema.createTransactionSchema.parse(transaction);
 
+  const item = await itemRepo.getItemById(validatedTransaction.itemId);
+
+  if (!item) {
+    throw AppError.NotFound("Item not found");
+  }
+
+  if (
+    validatedTransaction.transactionType === "OUT" &&
+    item.currentStock < validatedTransaction.quantity
+  ) {
+    throw AppError.BadRequest("Insufficient stock");
+  }
+
   const newTransaction =
     await transactionRepo.createTransaction(validatedTransaction);
+
+  const stockChange =
+    validatedTransaction.transactionType === "IN"
+      ? validatedTransaction.quantity
+      : -validatedTransaction.quantity;
+
+  await itemRepo.updateItemCurrentStock(
+    item._id.toString(),
+    item.currentStock + stockChange,
+  );
+
   return newTransaction;
 };
 
