@@ -5,6 +5,10 @@ const router = Router();
 
 router.post("/", transactionController.createTransactionControllerV1);
 router.get("/", transactionController.getAllTransactionControllerV1);
+router.get(
+  "/item/:id",
+  transactionController.getTransactionsByItemIdPaginatedControllerV1,
+);
 router.get("/:id", transactionController.getTransactionByIdControllerV1);
 router.put("/:id", transactionController.updateTransactionByIdControllerV1);
 router.delete("/:id", transactionController.deleteTransactionByIdControllerV1);

@@ -70,6 +70,32 @@ export const getTransactionByIdServiceV1 = async (id: string) => {
   return transaction;
 };
 
+export const getTransactionsByItemIdPaginatedServiceV1 = async (
+  itemId: string,
+  page: number,
+  limit: number,
+) => {
+  const validatedParams = transactionSchema.getTransactionsByItemIdSchema.parse(
+    {
+      id: itemId,
+      page,
+      limit,
+    },
+  );
+
+  const transactions = await transactionRepo.getTransactionsByItemIdPaginated(
+    validatedParams.id,
+    validatedParams.page,
+    validatedParams.limit,
+  );
+
+  if (!transactions) {
+    throw AppError.NotFound("Transactions for this item do not exist");
+  }
+
+  return transactions;
+};
+
 export const updateTransactionByIdServiceV1 = async (
   id: string,
   transaction: UpdateTransactionInput,

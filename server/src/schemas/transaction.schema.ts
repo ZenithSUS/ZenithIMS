@@ -17,6 +17,11 @@ export const getAllTransactionPaginatedSchema = z.object({
   ...paginationSchema,
 });
 
+export const getTransactionsByItemIdSchema = z.object({
+  id: objectIdSchema,
+  ...paginationSchema,
+});
+
 export const updateTransactionSchema = z.object({
   id: objectIdSchema,
   transaction: createTransactionSchema

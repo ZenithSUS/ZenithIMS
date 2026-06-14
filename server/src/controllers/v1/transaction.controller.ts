@@ -69,6 +69,34 @@ export const getTransactionByIdControllerV1 = async (
   }
 };
 
+export const getTransactionsByItemIdPaginatedControllerV1 = async (
+  req: Request<IdParams>,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const id = req.params.id;
+
+    const page = Number(req.query.page);
+    const limit = Number(req.query.limit);
+
+    const transactions =
+      await transactionService.getTransactionsByItemIdPaginatedServiceV1(
+        id,
+        page,
+        limit,
+      );
+
+    return res.status(200).json({
+      success: true,
+      message: "Transactions Fetched Successfully",
+      data: transactions,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const updateTransactionByIdControllerV1 = async (
   req: Request<IdParams>,
   res: Response,

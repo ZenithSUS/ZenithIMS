@@ -32,6 +32,26 @@ export const getTransactionById = async (id: string) => {
   return transaction;
 };
 
+export const getTransactionsByItemIdPaginated = async (
+  itemId: string,
+  page: number,
+  limit: number,
+): Promise<IPaginatedResponse<ITransaction>> => {
+  const skip = (page - 1) * limit;
+
+  const [transactions, total] = await Promise.all([
+    Transaction.find({ itemId }).skip(skip).limit(limit).lean().sort({
+      createdAt: -1,
+    }),
+    Transaction.countDocuments({ itemId }),
+  ]);
+
+  return {
+    data: transactions,
+    pagination: { page, limit, total, totalPages: Math.ceil(total / limit) },
+  };
+};
+
 export const updateTransactionById = async (
   id: string,
   transaction: UpdateTransactionInput,
