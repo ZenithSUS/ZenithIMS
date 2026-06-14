@@ -55,6 +55,6 @@ const itemSchema = new Schema<IItem>(
   },
 );
 
-itemSchema.index({ itemCode: 1 });
+itemSchema.index({ itemCode: 1, itemName: 1 }, { unique: true });
 
 export default model<IItem>("Item", itemSchema);

@@ -13,7 +13,7 @@ const notFoundMiddleware = (
   console.log(
     `${colors.red}Route not found - ${req.method} ${req.originalUrl}${colors.reset}`,
   );
-  console.log("=".repeat(50) + "\n");
+  console.log("=".repeat(50));
 
   const error = new AppError(
     `Route not found - ${req.method} ${req.originalUrl}`,

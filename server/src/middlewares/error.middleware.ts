@@ -24,7 +24,7 @@ const errorMiddleware = (
     });
   } else {
     console.log("=".repeat(50));
-    console.error("Unexpected error:", err);
+    console.error("Unexpected error:", err.message);
     console.log("=".repeat(50) + "\n");
     return res.status(500).json({
       success: false,
