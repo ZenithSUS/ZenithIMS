@@ -29,6 +29,11 @@ export const getItemById = async (id: string) => {
   return item;
 };
 
+export const getItemByItemCode = async (itemCode: string) => {
+  const item = await Item.findOne({ itemCode }).lean();
+  return item;
+};
+
 export const updateItem = async (id: string, item: UpdateItemInput) => {
   const updatedItem = await Item.findByIdAndUpdate(id, item, {
     returnDocument: "after",

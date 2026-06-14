@@ -25,6 +25,7 @@ const itemSchema = new Schema<IItem>(
     itemCode: {
       type: String,
       required: true,
+      unique: true,
     },
     itemName: {
       type: String,
@@ -54,7 +55,5 @@ const itemSchema = new Schema<IItem>(
     timestamps: true,
   },
 );
-
-itemSchema.index({ itemCode: 1, itemName: 1 }, { unique: true });
 
 export default model<IItem>("Item", itemSchema);

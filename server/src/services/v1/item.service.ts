@@ -6,6 +6,13 @@ import AppError from "../../utils/app-error.js";
 
 export const createItemServiceV1 = async (item: IItemInput) => {
   const validatedItem = itemSchema.createItemSchema.parse(item);
+
+  const existing = await itemRepo.getItemByItemCode(validatedItem.itemCode);
+
+  if (existing) {
+    throw AppError.Conflict("Item code already exists");
+  }
+
   const newItem = await itemRepo.createItem(validatedItem);
   return newItem;
 };
