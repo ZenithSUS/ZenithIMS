@@ -41,11 +41,6 @@
   /* Text */
   --color-ink: #111827;
   --color-ink-secondary: #6b7280;
+  --color-ink-muted: #9ca3af;
   --color-ink-disabled: #9ca3af;
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
 }

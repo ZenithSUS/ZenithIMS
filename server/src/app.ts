@@ -35,6 +35,13 @@ app.get("/health", (_, res) => {
   });
 });
 
+app.get("/", (_, res) => {
+  res.status(200).json({
+    success: true,
+    message: "ZenithMIS Server is running",
+  });
+});
+
 // Routes Version 1
 app.use("/api/v1/items", itemRouterV1);
 app.use("/api/v1/transactions", transactionV1);
