@@ -8,6 +8,7 @@ const Items = lazy(() => import("@/pages/dashboard/Items"));
 const StockIn = lazy(() => import("@/pages/dashboard/StockIn"));
 const StockOut = lazy(() => import("@/pages/dashboard/StockOut"));
 const LowStock = lazy(() => import("@/pages/dashboard/LowStock"));
+const Transactions = lazy(() => import("@/pages/dashboard/Transactions"));
 const Settings = lazy(() => import("@/pages/dashboard/Settings"));
 
 export default function AppRouter() {
@@ -20,10 +21,7 @@ export default function AppRouter() {
             <Route path="/dashboard/items" element={<Items />} />
             <Route path="/dashboard/stock-in" element={<StockIn />} />
             <Route path="/dashboard/stock-out" element={<StockOut />} />
-            <Route
-              path="/dashboard/transactions"
-              element={<div>Transactions</div>}
-            />
+            <Route path="/dashboard/transactions" element={<Transactions />} />
             <Route path="/dashboard/low-stock" element={<LowStock />} />
             <Route path="/dashboard/settings" element={<Settings />} />
           </Route>
