@@ -12,6 +12,7 @@ import requestLogger from "./middlewares/request-logger.js";
 // Routes V1
 import itemRouterV1 from "./routes/v1/item.route.js";
 import transactionV1 from "./routes/v1/transaction.route.js";
+import dashboardRouterV1 from "./routes/v1/dashboard.route.js";
 
 const app = express();
 
@@ -45,6 +46,7 @@ app.get("/", (_, res) => {
 // Routes Version 1
 app.use("/api/v1/items", itemRouterV1);
 app.use("/api/v1/transactions", transactionV1);
+app.use("/api/v1/dashboard", dashboardRouterV1);
 
 // Error and not found middlewares
 app.use(notFoundMiddleware);

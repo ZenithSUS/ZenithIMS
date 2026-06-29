@@ -1,10 +1,14 @@
 import { BiPackage } from "react-icons/bi";
 import DashboardItemCard from "./DashboardItemCard";
 import { CiWarning } from "react-icons/ci";
-import { LuArrowDownToLine } from "react-icons/lu";
+import { LuArrowDownToLine, LuLoader } from "react-icons/lu";
 import { BsArrowBarUp } from "react-icons/bs";
+import useDashboard from "./useDashboard";
+import { MdErrorOutline } from "react-icons/md";
 
 function Dashboard() {
+  const { dashboardData, isLoading, isError } = useDashboard();
+
   return (
     <div className="flex flex-col gap-2">
       {/* Dashboard Title */}
@@ -21,32 +25,33 @@ function Dashboard() {
           description="Total Items"
           subDescription="All Categories"
           bgcolor="blue"
-          icon={BiPackage}
-          value={10}
+          icon={isLoading ? LuLoader : isError ? MdErrorOutline : BiPackage}
+          value={dashboardData?.data.totalItems ?? 0}
         />
 
         <DashboardItemCard
           description="Low Stock Items"
           subDescription="Need restocking"
           bgcolor="orange"
-          icon={CiWarning}
-          value={2}
+          icon={isLoading ? LuLoader : isError ? MdErrorOutline : CiWarning}
+          value={dashboardData?.data.totalLowStock ?? 0}
         />
 
         <DashboardItemCard
           description="Stock-In Items"
           subDescription="322 total quantity"
           bgcolor="green"
-          icon={LuArrowDownToLine}
-          value={322}
+          icon={
+            isLoading ? LuLoader : isError ? MdErrorOutline : LuArrowDownToLine
+          }
+          value={dashboardData?.data.totalStockIn ?? 0}
         />
-
         <DashboardItemCard
           description="Stock-Out Today"
           subDescription="37 total quantity"
           bgcolor="purple"
-          icon={BsArrowBarUp}
-          value={37}
+          icon={isLoading ? LuLoader : isError ? MdErrorOutline : BsArrowBarUp}
+          value={dashboardData?.data.totalStockOutToday ?? 0}
         />
       </div>
     </div>

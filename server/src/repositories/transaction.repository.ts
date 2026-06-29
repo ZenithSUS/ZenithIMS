@@ -52,6 +52,21 @@ export const getTransactionsByItemIdPaginated = async (
   };
 };
 
+export const getTransactionDashboard = async () => {
+  const startOfToday = new Date().setHours(0, 0, 0, 0);
+  const endOfToday = new Date().setHours(23, 59, 59, 999);
+
+  const [totalStockIn, totalStockOutToday] = await Promise.all([
+    Transaction.countDocuments({ transactionType: "IN" }),
+    Transaction.countDocuments({
+      transactionType: "OUT",
+      createdAt: { $gte: startOfToday, $lte: endOfToday },
+    }),
+  ]);
+
+  return { totalStockIn, totalStockOutToday };
+};
+
 export const updateTransactionById = async (
   id: string,
   transaction: UpdateTransactionInput,

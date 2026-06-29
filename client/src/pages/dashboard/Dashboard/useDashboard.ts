@@ -1,29 +1,15 @@
-import useGetItemsPagination from "@/feature/item/useGetItemsPagination";
-import { useState } from "react";
+import useDashboardData from "@/feature/dashboard/useGetDashboardData";
 
 const useDashboard = () => {
-  const [page, setPage] = useState(1);
-
   const {
-    data,
+    data: dashboardData,
     isLoading,
     isError,
     refetch: refetchItems,
-  } = useGetItemsPagination(page);
-
-  const handleNextPage = () => setPage((prevPage) => prevPage + 1);
-  const handlePrevPage = () => setPage((prevPage) => prevPage - 1);
-
-  const items = data?.data.item || [];
-  const totalItems = data?.data.pagination.total || 0;
+  } = useDashboardData();
 
   return {
-    page,
-    setPage,
-    handleNextPage,
-    handlePrevPage,
-    items,
-    totalItems,
+    dashboardData,
     isLoading,
     isError,
     refetchItems,

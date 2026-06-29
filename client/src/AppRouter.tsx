@@ -1,5 +1,6 @@
 import { lazy, Suspense } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Loading from "./components/Loading";
 
 const DashboardLayout = lazy(() => import("@/layouts/DashboardLayout"));
 const Dashboard = lazy(() => import("@/pages/dashboard/Dashboard"));
@@ -12,7 +13,7 @@ const Settings = lazy(() => import("@/pages/dashboard/Settings"));
 export default function AppRouter() {
   return (
     <BrowserRouter>
-      <Suspense fallback={<div>Loading</div>}>
+      <Suspense fallback={<Loading />}>
         <Routes>
           <Route path="/dashboard" element={<DashboardLayout />}>
             <Route index element={<Dashboard />} />

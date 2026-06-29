@@ -34,6 +34,19 @@ export const getItemByItemCode = async (itemCode: string) => {
   return item;
 };
 
+export const getItemDashboard = async () => {
+  const [totalItems, totalLowStock] = await Promise.all([
+    Item.countDocuments(),
+    Item.countDocuments({
+      $expr: {
+        $lt: ["$currentStock", "$minimumStock"],
+      },
+    }),
+  ]);
+
+  return { totalItems, totalLowStock };
+};
+
 export const updateItem = async (id: string, item: UpdateItemInput) => {
   const updatedItem = await Item.findByIdAndUpdate(id, item, {
     returnDocument: "after",
